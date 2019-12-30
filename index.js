@@ -1,4 +1,9 @@
-"use strict";
+const message = "cybersecuritycybersecurytAIAImrm8488";
+const letters = [...message];
+
+const urlParams = new URLSearchParams(window.location.search);
+const cybermodeParam = urlParams.get("cybermode");
+const cybermode = cybermodeParam ? true : false;
 
 const canvas = document.getElementById("canv");
 const ctx = canvas.getContext("2d");
@@ -14,7 +19,9 @@ function matrix() {
   ctx.fillStyle = "#0f0";
   ctx.font = "15pt monospace";
   ypos.forEach((y, ind) => {
-    const text = String.fromCharCode(Math.random() * 128);
+    const text = cybermode
+      ? letters[Math.floor(Math.random() * letters.length)]
+      : String.fromCharCode(Math.random() * 128);
     const x = ind * 20;
     ctx.fillText(text, x, y);
     if (y > 100 + Math.random() * 10000) ypos[ind] = 0;
