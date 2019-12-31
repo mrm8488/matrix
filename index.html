@@ -13,18 +13,27 @@
     <canvas id="canv" width="500" height="200"></canvas>
 
     <script>
-      let message = "cybersecuritycybersecurytAIAImrm8488";
+      const cyberMessage = "cybersecuritycybersecurytAIAImrm8488";
 
       const urlParams = new URLSearchParams(window.location.search);
       const cybermodeParam = urlParams.get("cybermode");
+      const textParam = urlParams.get("text");
+      let mode;
+      if (textParam && textParam.length) mode = "text";
+      else if (cybermodeParam) mode = "cyber";
+      else mode = "default";
+      console.log(mode);
       const cybermode = cybermodeParam ? true : false;
       const canvas = document.getElementById("canv");
       const ctx = canvas.getContext("2d");
       const w = (canvas.width = document.body.offsetWidth);
       const h = (canvas.height = document.body.offsetHeight);
       const cols = Math.floor(w / 20) + 1;
+
+      let message = mode === "text" ? textParam : cyberMessage;
+
       while (message.length < cols) {
-        message += "cybersecurity";
+        message += mode === "text" ? textParam : cyberMessage;
       }
       message = message.slice(0, cols);
       const letters = [...message];
@@ -37,9 +46,10 @@
         ctx.fillStyle = "#0f0";
         ctx.font = "15pt monospace";
         ypos.forEach((y, ind) => {
-          const text = cybermode
-            ? letters[ind]
-            : String.fromCharCode(Math.random() * 128);
+          const text =
+            mode === "text" || mode === "cyber"
+              ? letters[ind]
+              : String.fromCharCode(Math.random() * 128);
           const x = ind * 20;
           ctx.fillText(text, x, y);
           if (y > 100 + Math.random() * 10000) ypos[ind] = 0;
