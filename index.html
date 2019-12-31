@@ -1,19 +1,52 @@
-<!doctype html>
-<html lang="en">
+<html>
   <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link rel=“stylesheet” type=“text/css” href="./styles.css" />
-  <head>
-      <title>Matrix effect</title>
-    
+    <style>
+      body {
+        margin: 0;
+        height: 100vh;
+        width: 100vw;
+      }
+    </style>
   </head>
 
   <body>
-    <canvas id="canv"></canvas>
+    <canvas id="canv" width="500" height="200"></canvas>
 
-    <script src="./index.js"></script>
+    <script>
+      let message = "cybersecuritycybersecurytAIAImrm8488";
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const cybermodeParam = urlParams.get("cybermode");
+      const cybermode = cybermodeParam ? true : false;
+      const canvas = document.getElementById("canv");
+      const ctx = canvas.getContext("2d");
+      const w = (canvas.width = document.body.offsetWidth);
+      const h = (canvas.height = document.body.offsetHeight);
+      const cols = Math.floor(w / 20) + 1;
+      while (message.length < cols) {
+        message += "cybersecurity";
+      }
+      message = message.slice(0, cols);
+      const letters = [...message];
+      const ypos = Array(cols).fill(0);
+      ctx.fillStyle = "#000";
+      ctx.fillRect(0, 0, w, h);
+      function matrix() {
+        ctx.fillStyle = "#0001";
+        ctx.fillRect(0, 0, w, h);
+        ctx.fillStyle = "#0f0";
+        ctx.font = "15pt monospace";
+        ypos.forEach((y, ind) => {
+          const text = cybermode
+            ? letters[ind]
+            : String.fromCharCode(Math.random() * 128);
+          const x = ind * 20;
+          ctx.fillText(text, x, y);
+          if (y > 100 + Math.random() * 10000) ypos[ind] = 0;
+          else ypos[ind] = y + 20;
+        });
+      }
+      setInterval(matrix, 50);
+    </script>
   </body>
 </html>

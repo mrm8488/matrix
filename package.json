@@ -1,5 +1,9 @@
 {
   "devDependencies": {
     "cssnano": "^4.1.10"
+  },
+  "scripts": {
+    "build": "parcel build index.html -d docs --public-url ./",
+    "dev": "parcel build index.html"
   }
 }
